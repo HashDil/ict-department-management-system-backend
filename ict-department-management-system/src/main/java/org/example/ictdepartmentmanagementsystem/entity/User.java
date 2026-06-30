@@ -21,8 +21,8 @@ public class User {
     @Column(name = "enrollment_number", nullable = false, unique = true)
     private String enrollmentNumber;
 
-    private String firstName;
-    private String lastName;
+    private String fullName;
+    private String nameWithInitials;
     private String email;
     private String password;
 
