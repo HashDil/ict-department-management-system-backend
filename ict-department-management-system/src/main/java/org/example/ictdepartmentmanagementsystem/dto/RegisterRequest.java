@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.example.ictdepartmentmanagementsystem.entity.Role;
 
 @Data
 public class RegisterRequest {
@@ -27,5 +28,5 @@ public class RegisterRequest {
     private String password;
 
     @NotBlank(message = "Role is required")
-    private String role;
+    private Role role;
 }
