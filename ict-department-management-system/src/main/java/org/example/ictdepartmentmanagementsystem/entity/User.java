@@ -2,6 +2,7 @@ package org.example.ictdepartmentmanagementsystem.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,10 @@ public class User {
 
     private String fullName;
     private String nameWithInitials;
+
+    @Email
     private String email;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
