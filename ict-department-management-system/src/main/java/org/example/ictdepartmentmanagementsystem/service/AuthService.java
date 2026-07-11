@@ -3,11 +3,14 @@ package org.example.ictdepartmentmanagementsystem.service;
 import org.example.ictdepartmentmanagementsystem.dto.AuthResponse;
 import org.example.ictdepartmentmanagementsystem.dto.LoginRequest;
 import org.example.ictdepartmentmanagementsystem.dto.RegisterRequest;
+import org.example.ictdepartmentmanagementsystem.entity.Role;
 import org.example.ictdepartmentmanagementsystem.entity.User;
 import org.example.ictdepartmentmanagementsystem.repository.UserRepository;
 import org.example.ictdepartmentmanagementsystem.security.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +44,7 @@ public class AuthService {
         user.setNameWithInitials(registerRequest.getNameWithInitials());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setRole(registerRequest.getRole());
+        user.setRole(Role.valueOf(registerRequest.getRole()));
 
         userRepository.save(user);
 
@@ -52,10 +55,11 @@ public class AuthService {
 
     public AuthResponse login (LoginRequest loginRequest) {
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEnrollmentNumber(), loginRequest.getPassword())
-        );
+
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getEnrollmentNumber(), loginRequest.getPassword())
+            );
 
 
         String token = jwtUtil.generateToken(loginRequest.getEnrollmentNumber());
