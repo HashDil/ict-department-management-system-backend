@@ -24,10 +24,7 @@ public class User {
 
     private String fullName;
     private String nameWithInitials;
-
-    @Email
     private String email;
-
     private String password;
 
     @Enumerated(EnumType.STRING)
