@@ -12,7 +12,7 @@ public class RegisterRequest {
 
     @Pattern(
             regexp = "^UWU/ICT/\\d{2}/\\d{3}$",
-            message = "Enrollment number must be in format UWU/ICT/YY/NNN (e.g. UWU/ICT/23/019)"
+            message = "Enrollment number must be in format UWU/ICT/YY/NNN (e.g. UWU/ICT/23/020)"
     )
     @NotBlank(message = "Enrollment number is required")
     private String enrollmentNumber;
