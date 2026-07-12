@@ -1,0 +1,26 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: ict-mysql
+    environment:
+      MYSQL_DATABASE: ict_department_management_system
+      MYSQL_ROOT_PASSWORD: 12345
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend:
+    image: ict-department-management-system
+    container_name: ict-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ict_department_management_system
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345
+
+volumes:
+  mysql-data:

@@ -1,0 +1,15 @@
+org\example\ictdepartmentmanagementsystem\dto\LoginRequest.class
+org\example\ictdepartmentmanagementsystem\security\JwtUtil.class
+org\example\ictdepartmentmanagementsystem\service\AuthService.class
+org\example\ictdepartmentmanagementsystem\entity\Student.class
+org\example\ictdepartmentmanagementsystem\security\SecurityConfig.class
+org\example\ictdepartmentmanagementsystem\entity\Role.class
+org\example\ictdepartmentmanagementsystem\security\JwtAuthFilter.class
+org\example\ictdepartmentmanagementsystem\repository\UserRepository.class
+org\example\ictdepartmentmanagementsystem\controller\AuthController.class
+org\example\ictdepartmentmanagementsystem\dto\AuthResponse.class
+org\example\ictdepartmentmanagementsystem\dto\RegisterRequest.class
+org\example\ictdepartmentmanagementsystem\entity\User.class
+org\example\ictdepartmentmanagementsystem\entity\Batch.class
+org\example\ictdepartmentmanagementsystem\IctDepartmentManagementSystemApplication.class
+org\example\ictdepartmentmanagementsystem\service\CustomeUserDetailsService.class
