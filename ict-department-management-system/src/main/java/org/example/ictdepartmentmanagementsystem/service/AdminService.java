@@ -37,7 +37,7 @@ public class AdminService {
         student.setEnrollmentNumber(request.getEnrollmentNumber());
         student.setEmail(request.getEmail());
         student.setFullName(request.getFullName());
-        student.setNameWithInitials(request.getNaneWithInitials());
+        student.setNameWithInitials(request.getNameWithInitials());
         student.setPassword(passwordEncoder.encode(defaultPassword));
         student.setRole(Role.STUDENT);
         student.setBatch(request.getBatch());
