@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
+public class AdminRegisterRequest {
 
     @Pattern(
             regexp = "^UWU/ICT/\\d{2}/\\d{3}$",

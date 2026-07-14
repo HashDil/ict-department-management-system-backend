@@ -3,7 +3,7 @@ package org.example.ictdepartmentmanagementsystem.controller;
 import jakarta.validation.Valid;
 import org.example.ictdepartmentmanagementsystem.dto.AuthResponse;
 import org.example.ictdepartmentmanagementsystem.dto.LoginRequest;
-import org.example.ictdepartmentmanagementsystem.dto.RegisterRequest;
+import org.example.ictdepartmentmanagementsystem.dto.AdminRegisterRequest;
 import org.example.ictdepartmentmanagementsystem.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
-        AuthResponse authResponse = authService.register(registerRequest);
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody AdminRegisterRequest adminRegisterRequest) {
+        AuthResponse authResponse = authService.register(adminRegisterRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(authResponse);
     }
 

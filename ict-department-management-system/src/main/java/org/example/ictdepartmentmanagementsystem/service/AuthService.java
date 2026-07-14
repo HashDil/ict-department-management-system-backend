@@ -2,15 +2,13 @@ package org.example.ictdepartmentmanagementsystem.service;
 
 import org.example.ictdepartmentmanagementsystem.dto.AuthResponse;
 import org.example.ictdepartmentmanagementsystem.dto.LoginRequest;
-import org.example.ictdepartmentmanagementsystem.dto.RegisterRequest;
+import org.example.ictdepartmentmanagementsystem.dto.AdminRegisterRequest;
 import org.example.ictdepartmentmanagementsystem.entity.Role;
 import org.example.ictdepartmentmanagementsystem.entity.User;
 import org.example.ictdepartmentmanagementsystem.repository.UserRepository;
 import org.example.ictdepartmentmanagementsystem.security.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,22 +27,22 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthResponse register (RegisterRequest registerRequest) {
-        if(userRepository.existsByEnrollmentNumber(registerRequest.getEnrollmentNumber())) {
+    public AuthResponse register (AdminRegisterRequest adminRegisterRequest) {
+        if(userRepository.existsByEnrollmentNumber(adminRegisterRequest.getEnrollmentNumber())) {
             throw new IllegalArgumentException("Enrollment number already exists");
         }
 
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
+        if (userRepository.existsByEmail(adminRegisterRequest.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
 
         User user = new User();
-        user.setEnrollmentNumber(registerRequest.getEnrollmentNumber());
-        user.setFullName(registerRequest.getFullName());
-        user.setNameWithInitials(registerRequest.getNameWithInitials());
-        user.setEmail(registerRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setRole(Role.valueOf(registerRequest.getRole()));
+        user.setEnrollmentNumber(adminRegisterRequest.getEnrollmentNumber());
+        user.setFullName(adminRegisterRequest.getFullName());
+        user.setNameWithInitials(adminRegisterRequest.getNameWithInitials());
+        user.setEmail(adminRegisterRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(adminRegisterRequest.getPassword()));
+        user.setRole(Role.valueOf(adminRegisterRequest.getRole()));
 
         userRepository.save(user);
 
