@@ -21,7 +21,7 @@ public class AdminRegisterStudentRequest {
     private String fullName;
 
     @NotBlank(message = "Name with initials is required")
-    private String naneWithInitials;
+    private String nameWithInitials;
 
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
