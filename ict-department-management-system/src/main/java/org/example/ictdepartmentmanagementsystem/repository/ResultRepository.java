@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ResultRepository extends JpaRepository<Result,Long> {
-    List<Result> findByStudentId(Long studentId);
-    List<Result> findByStudentIdAndSemester(Long studentId, Semester semester);
+    List<Result> findByStudentEnrollmentNumber(String studentEnrollmentNumber);
+    List<Result> findByStudentEnrollmentNumberAndSemester(String studentEnrollmentNumber, Semester semester);
 }

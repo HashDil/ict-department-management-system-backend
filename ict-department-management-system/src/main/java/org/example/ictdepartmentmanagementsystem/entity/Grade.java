@@ -1,5 +1,6 @@
 package org.example.ictdepartmentmanagementsystem.entity;
 
+
 public enum Grade {
     A_PLUS(4.0),
     A(4.0),

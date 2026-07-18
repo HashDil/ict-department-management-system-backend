@@ -1,15 +1,20 @@
 package org.example.ictdepartmentmanagementsystem.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.example.ictdepartmentmanagementsystem.entity.Grade;
+import org.example.ictdepartmentmanagementsystem.entity.Semester;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResultResponse {
 
-    private String subjectCode;
-    private String subjectName;
-    private int creditHours;
+    private UserResponse student;
+    private SubjectResponse subject;
     private double marks;
-    private String grade;
+    private Grade grade;
     private double gradePoint;
-    private String semester;
+    private Semester semester;
 }

@@ -13,7 +13,7 @@ public class AddResultRequest {
     private String enrollmentNumber;
 
     @NotNull(message = "Subject id is required")
-    private Long subjectId;
+    private String subjectCode;
 
     @NotNull(message = "Marks is required")
     private double marks;
