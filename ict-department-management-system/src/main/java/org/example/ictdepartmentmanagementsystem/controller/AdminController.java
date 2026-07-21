@@ -27,4 +27,11 @@ public class AdminController {
 
         return ResponseEntity.ok(Map.of("message", "Student registered successfully."+"Login credentials have been sent to "+request.getEmail()));
     }
+
+    @DeleteMapping("/delete-student")
+    public ResponseEntity<Map<String, String>> deleteStudent(@Valid @RequestBody Map<String, String> request){
+        String enrollmentNumber = request.get("enrollmentNumber");
+        adminService.deleteStudent(enrollmentNumber);
+        return ResponseEntity.ok(Map.of("message", "Student deleted successfully."));
+    }
 }

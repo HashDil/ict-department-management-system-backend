@@ -1,5 +1,6 @@
 package org.example.ictdepartmentmanagementsystem.service;
 
+import jakarta.transaction.Transactional;
 import org.example.ictdepartmentmanagementsystem.dto.AdminRegisterStudentRequest;
 import org.example.ictdepartmentmanagementsystem.entity.Batch;
 import org.example.ictdepartmentmanagementsystem.entity.Role;
@@ -60,5 +61,13 @@ public class AdminService {
     private String generateDefaultPassword() {
         String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return "UWU@"+uuid;
+    }
+
+    @Transactional
+    public void deleteStudent(String enrollmentNumber){
+        if(!userRepository.existsByEnrollmentNumber(enrollmentNumber)){
+            throw new IllegalArgumentException("User does not exist");
+        }
+        userRepository.deleteByEnrollmentNumber(enrollmentNumber);
     }
 }
