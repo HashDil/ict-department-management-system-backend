@@ -1,8 +1,10 @@
 package org.example.ictdepartmentmanagementsystem.service;
 
 import org.example.ictdepartmentmanagementsystem.dto.AdminRegisterStudentRequest;
+import org.example.ictdepartmentmanagementsystem.entity.Batch;
 import org.example.ictdepartmentmanagementsystem.entity.Role;
 import org.example.ictdepartmentmanagementsystem.entity.Student;
+import org.example.ictdepartmentmanagementsystem.repository.BatchRepository;
 import org.example.ictdepartmentmanagementsystem.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,13 @@ public class AdminService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final BatchRepository batchRepository;
 
-    public AdminService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public AdminService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, BatchRepository batchRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.batchRepository = batchRepository;
     }
 
     public void registerStudent(AdminRegisterStudentRequest request){
@@ -40,7 +44,13 @@ public class AdminService {
         student.setNameWithInitials(request.getNameWithInitials());
         student.setPassword(passwordEncoder.encode(defaultPassword));
         student.setRole(Role.STUDENT);
-        student.setBatch(request.getBatch());
+
+        Batch batch = batchRepository.findByBatchName(request.getBatchName());
+        if (batch == null){
+            throw new IllegalArgumentException("Batch not found");
+        }
+
+        student.setBatch(batch);
 
         userRepository.save(student);
 

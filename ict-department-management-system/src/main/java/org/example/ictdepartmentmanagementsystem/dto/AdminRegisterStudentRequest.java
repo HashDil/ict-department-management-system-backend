@@ -28,6 +28,6 @@ public class AdminRegisterStudentRequest {
     private String email;
 
     @NotNull(message = "Batch is required")
-    private Batch batch;
+    private String batchName;
 
 }

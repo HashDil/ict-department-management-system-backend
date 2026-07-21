@@ -87,7 +87,7 @@ public class ResultService {
         response.setFullName(student.getFullName());
         response.setNameWithInitials(student.getNameWithInitials());
         response.setRole(student.getRole().toString());
-        response.setBatch(student.getBatch().toString());
+        response.setBatchName(student.getBatch().getBatchName());
 
 
         SubjectResponse subResponse = subjectService.mapToResponse(result.getSubject());

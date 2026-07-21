@@ -5,6 +5,7 @@ import org.example.ictdepartmentmanagementsystem.dto.UpdateProfileRequest;
 import org.example.ictdepartmentmanagementsystem.dto.UserResponse;
 import org.example.ictdepartmentmanagementsystem.entity.Student;
 import org.example.ictdepartmentmanagementsystem.entity.User;
+import org.example.ictdepartmentmanagementsystem.repository.BatchRepository;
 import org.example.ictdepartmentmanagementsystem.repository.UserRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,10 +23,10 @@ public class UserService {
     }
 
     private UserResponse mapToResponse(User user) {
-        String batch = null;
+        String batchName = null;
 
         if (user instanceof Student student) {
-            batch = student.getBatch().name();
+            batchName = student.getBatch().getBatchName();
         }
         return new UserResponse(
                 user.getEnrollmentNumber(),
@@ -33,7 +34,7 @@ public class UserService {
                 user.getNameWithInitials(),
                 user.getEmail(),
                 user.getRole().name(),
-                batch
+                batchName
         );
     }
 

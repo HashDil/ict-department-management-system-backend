@@ -1,15 +1,33 @@
 package org.example.ictdepartmentmanagementsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public enum Batch {
-    BATCH_2021,
-    BATCH_2022,
-    BATCH_2023,
-    BATCH_2024;
+@Entity
+@Table(name = "batches")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Batch {
 
-    @JsonCreator
-    public static Batch fromString(String value) {
-        return Batch.valueOf(value.toUpperCase());
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String batchName;
+
+    private Integer intakeYear;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Month intakeMonth;
+
+    private Integer studentCount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
 }
