@@ -27,6 +27,9 @@ public class User {
     private String email;
     private String password;
 
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 }
