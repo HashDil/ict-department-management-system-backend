@@ -19,6 +19,8 @@ public class AcademicStaff {
     private Long id;
 
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private Honorific honorific;
     private String email;
     private int phoneNumber;

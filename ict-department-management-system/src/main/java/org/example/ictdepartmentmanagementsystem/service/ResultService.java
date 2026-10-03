@@ -78,6 +78,17 @@ public class ResultService {
                 .toList();
     }
 
+    public String deleteResult(String subjectCode, String enrollmentNumber){
+        Student student = (Student) userRepository.findByEnrollmentNumber(enrollmentNumber);
+        if (student == null){
+            throw new IllegalArgumentException("Student not found");
+        }
+
+        resultRepository.delete( resultRepository.findByStudentEnrollmentNumberAndSubjectSubjectCode(enrollmentNumber,subjectCode));
+
+        return "Result deleted successfully";
+    }
+
     public ResultResponse mapToResponse(Result result){
         Student student = result.getStudent();
 

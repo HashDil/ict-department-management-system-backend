@@ -1,5 +1,6 @@
 package org.example.ictdepartmentmanagementsystem.entity;
 
+
 public enum Honorific {
     SENIOR_PROFESSOR,
     PROFESSOR,
@@ -7,4 +8,5 @@ public enum Honorific {
     MR,
     MRS,
     MS
+
 }

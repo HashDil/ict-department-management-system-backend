@@ -17,6 +17,9 @@ public class FileStorageService {
     @Value("${app.upload.dir}")
     private String uploadDir;
 
+    @Value("${app.upload.academicstaff.dir}")
+    private String academicStaffUploadDir;
+
     @Value("${app.base.url}")
     private String baseUrl;
 
@@ -26,13 +29,7 @@ public class FileStorageService {
 
     public String saveProfilePicture(MultipartFile file, String enrollmentNumber) throws IOException {
 
-        if (!ALLOWED_TYPES.contains(file.getContentType())) {
-            throw new IllegalArgumentException("Only JPG and PNG images are allowed");
-        }
-
-        if (file.getSize() > MAX_FILE_SIZE) {
-            throw new IllegalArgumentException("File is must be less than 5MB");
-        }
+        validateFile(file);
 
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
@@ -55,6 +52,43 @@ public class FileStorageService {
                 .resolve(Paths.get(relativePath).getFileName());
 
         Files.deleteIfExists(filePath);
+    }
+
+    public String saveAcademicStaffPicture(MultipartFile file, String email) throws IOException {
+
+       validateFile(file);
+
+        Path uploadPath = Paths.get(academicStaffUploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String extension = getFileExtension(file.getOriginalFilename());
+        String fileName = email+extension;
+
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return "/uploads/academicstaff-pictures/" + fileName;
+    }
+
+    public void deleteAcademicStaffPicture(String relativePath) throws IOException {
+        if(relativePath == null || relativePath.isEmpty()) {return;}
+
+        Path filePath = Paths.get(academicStaffUploadDir)
+                .resolve(Paths.get(relativePath).getFileName());
+
+        Files.deleteIfExists(filePath);
+    }
+
+    private void validateFile(MultipartFile file){
+        if (!ALLOWED_TYPES.contains(file.getContentType())) {
+            throw new IllegalArgumentException("Only JPG and PNG images are allowed");
+        }
+
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new IllegalArgumentException("File is must be less than 5MB");
+        }
     }
 
     public String getFileUrl(String relativePath) throws IOException {

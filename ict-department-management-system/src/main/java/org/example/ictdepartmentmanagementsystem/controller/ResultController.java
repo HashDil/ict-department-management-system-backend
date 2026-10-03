@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin (origins = "http://localhost:5173")
+
 @RestController
 @RequestMapping("/api/results")
 public class ResultController {
@@ -56,5 +56,12 @@ public class ResultController {
     public ResponseEntity<List<ResultResponse>> getStudentResultsBySemester(@RequestBody Map<String, String> request,@PathVariable Semester semester){
         String enrollmentNumber = request.get("enrollmentNumber");
         return ResponseEntity.ok(resultService.getStudentResultsBySemester(enrollmentNumber,semester));
+    }
+
+    @DeleteMapping("/{subjectCode}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteResult(@PathVariable String subjectCode, @RequestBody Map<String, String> request){
+        String enrollmentNumber = request.get("enrollmentNumber");
+        return ResponseEntity.ok(resultService.deleteResult(subjectCode,enrollmentNumber));
     }
 }
