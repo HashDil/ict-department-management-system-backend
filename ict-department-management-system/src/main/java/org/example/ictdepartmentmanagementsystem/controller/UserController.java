@@ -38,10 +38,5 @@ public class UserController {
         return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
     }
 
-    @PutMapping("/update-profile")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<UserResponse>updateUserDetails(@Valid @RequestBody UpdateProfileRequest request) {
-        UserResponse updated = userService.updateProfile(request);
-        return ResponseEntity.ok(updated);
-    }
+
 }

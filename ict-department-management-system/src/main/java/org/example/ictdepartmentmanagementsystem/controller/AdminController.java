@@ -2,6 +2,7 @@ package org.example.ictdepartmentmanagementsystem.controller;
 
 import jakarta.validation.Valid;
 import org.example.ictdepartmentmanagementsystem.dto.AdminRegisterStudentRequest;
+import org.example.ictdepartmentmanagementsystem.dto.UpdateProfileRequest;
 import org.example.ictdepartmentmanagementsystem.dto.UserResponse;
 import org.example.ictdepartmentmanagementsystem.service.AdminService;
 import org.example.ictdepartmentmanagementsystem.service.UserService;
@@ -43,6 +44,13 @@ public class AdminController {
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers(){
         return ResponseEntity.ok(adminService.getAllStudents());
+    }
+
+    @PutMapping("/update-profile")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<UserResponse>updateUserDetails(@Valid @RequestBody UpdateProfileRequest request) {
+        UserResponse updated = userService.updateProfile(request);
+        return ResponseEntity.ok(updated);
     }
 
 }
