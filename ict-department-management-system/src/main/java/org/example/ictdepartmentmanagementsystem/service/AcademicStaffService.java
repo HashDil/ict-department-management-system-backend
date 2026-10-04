@@ -78,12 +78,33 @@ public class AcademicStaffService {
     }
 
     public String addPictureToAcademicStaff (MultipartFile file, String email) throws IOException {
-       return fileStorageService.saveAcademicStaffPicture(file, email);
+        AcademicStaff staff = academicStaffRepository.findAcademicStaffByEmail(email);
+
+        if (staff == null) {
+            throw new IllegalArgumentException("No academicStaff found for this email");
+        }
+
+        if(staff.getPicture()!=null){
+            fileStorageService.deleteAcademicStaffPicture(staff.getPicture());
+        }
+
+       String relativePath = fileStorageService.saveAcademicStaffPicture(file, email);
+        staff.setPicture(relativePath);
+        academicStaffRepository.save(staff);
+
+        return "Picture saved successfully";
+
     }
 
     public String deletePicture (String email) throws IOException {
-        fileStorageService.deleteAcademicStaffPicture(email);
-        return email+" deleted successfully";
+        AcademicStaff staff = academicStaffRepository.findAcademicStaffByEmail(email);
+        if (staff != null && staff.getPicture()!=null) {
+            fileStorageService.deleteAcademicStaffPicture(staff.getPicture());
+            staff.setPicture(null);
+            academicStaffRepository.save(staff);
+        }
+
+        return "Picture deleted successfully";
     }
 
 
