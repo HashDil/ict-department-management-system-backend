@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/update-profile")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserResponse>updateUserDetails(@Valid @RequestBody UpdateProfileRequest request) {
         UserResponse updated = userService.updateProfile(request);
         return ResponseEntity.ok(updated);

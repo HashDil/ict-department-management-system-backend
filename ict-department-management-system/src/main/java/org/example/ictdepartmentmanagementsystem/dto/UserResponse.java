@@ -17,4 +17,5 @@ public class UserResponse {
     private String email;
     private String role;
     private String batchName;
+    private String profilePicture;
 }

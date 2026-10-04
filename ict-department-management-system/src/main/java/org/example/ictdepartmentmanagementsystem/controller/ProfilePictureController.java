@@ -23,7 +23,7 @@ public class ProfilePictureController {
     }
 
     @PostMapping(value = "/upload/admin", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, String>> uploadStudentProfilePicture(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.ok(
                 profilePictureService.uploadProfilePicture(userDetails.getUsername(), file)
@@ -31,14 +31,14 @@ public class ProfilePictureController {
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<Map<String,String>>uploadMyProfilePicture(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.ok(
                 profilePictureService.uploadProfilePicture(userDetails.getUsername(), file));
     }
 
     @DeleteMapping("/delete")
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<Map<String, String>> deleteMyProfilePicture(@AuthenticationPrincipal UserDetails userDetails) throws IOException {
 
         profilePictureService.deleteProfilePicture(userDetails.getUsername());
@@ -46,7 +46,7 @@ public class ProfilePictureController {
     }
 
     @DeleteMapping("/delete/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, String>> deleteStudentProfilePicture(@RequestBody Map<String,String> request) throws IOException {
         profilePictureService.deleteProfilePicture(request.get("enrollmentNumber"));
         return ResponseEntity.ok(Map.of("message", "Profile Picture deleted successfully"));

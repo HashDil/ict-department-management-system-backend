@@ -30,31 +30,31 @@ public class AcademicStaffController {
     }
 
     @PostMapping(value = "/addAcademicStaff")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> addAcademicStaff(@Valid @RequestBody AddAcademicStaffRequest request) {
         return ResponseEntity.ok(academicStaffService.addAcademicStaff(request));
     }
 
     @PutMapping("/updateAcademicStaff/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> updateAcademicStaff(@Valid @RequestBody UpdateAcademicStaffRequest request, @PathVariable String email){
         return ResponseEntity.ok(academicStaffService.updateAcademicStaff(email, request));
     }
 
     @DeleteMapping("/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteAcademicStaff(@PathVariable String email) throws IOException {
         return ResponseEntity.ok(academicStaffService.deleteAcademicStaff(email));
     }
 
     @PostMapping("/addPicture/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> addPicture(@RequestParam("file") MultipartFile file, @PathVariable String email) throws IOException {
         return ResponseEntity.ok(academicStaffService.addPictureToAcademicStaff(file,email));
     }
 
     @DeleteMapping("/deletePicture/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deletePicture(@PathVariable String email) throws IOException {
         return ResponseEntity.ok(academicStaffService.deletePicture(email));
     }

@@ -24,7 +24,7 @@ public class SubjectController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SubjectResponse> addSubject(@Valid @RequestBody AddSubjectRequest addSubjectRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(subjectService.addSubject(addSubjectRequest));
     }

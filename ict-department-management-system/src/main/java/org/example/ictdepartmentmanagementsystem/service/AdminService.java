@@ -2,6 +2,7 @@ package org.example.ictdepartmentmanagementsystem.service;
 
 import jakarta.transaction.Transactional;
 import org.example.ictdepartmentmanagementsystem.dto.AdminRegisterStudentRequest;
+import org.example.ictdepartmentmanagementsystem.dto.UserResponse;
 import org.example.ictdepartmentmanagementsystem.entity.Batch;
 import org.example.ictdepartmentmanagementsystem.entity.Role;
 import org.example.ictdepartmentmanagementsystem.entity.Student;
@@ -10,7 +11,9 @@ import org.example.ictdepartmentmanagementsystem.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
@@ -20,7 +23,7 @@ public class AdminService {
     private final EmailService emailService;
     private final BatchRepository batchRepository;
 
-    public AdminService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, BatchRepository batchRepository) {
+    public AdminService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, BatchRepository batchRepository, BatchService batchService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
@@ -69,5 +72,26 @@ public class AdminService {
             throw new IllegalArgumentException("User does not exist");
         }
         userRepository.deleteByEnrollmentNumber(enrollmentNumber);
+    }
+
+    public List<UserResponse> getAllStudents(){
+        return userRepository
+                .findByRole(Role.STUDENT)
+                .stream()
+                .map(user -> (Student)user)
+                .map(this::mapToUserResponse)
+                .toList();
+    }
+
+    private UserResponse mapToUserResponse(Student student){
+        return new UserResponse(
+                student.getEnrollmentNumber(),
+                student.getFullName(),
+                student.getNameWithInitials(),
+                student.getEmail(),
+                student.getRole().name(),
+                student.getBatch().getBatchName(),
+                student.getProfilePicture()
+        );
     }
 }

@@ -24,7 +24,7 @@ public class BatchController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<BatchResponse> addBatch(@RequestBody AddBatchRequest request){
         return  ResponseEntity.status(HttpStatus.CREATED).body(batchService.addBatch(request));
     }
@@ -40,13 +40,13 @@ public class BatchController {
     }
 
     @PutMapping("/{batchName}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<BatchResponse>updateBatch(@PathVariable String batchName, @RequestBody AddBatchRequest request){
         return  ResponseEntity.ok(batchService.updateBatch(batchName, request));
     }
 
     @DeleteMapping("/{batchName}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, String>>deleteBatch(@PathVariable("batchName") String batchName){
         batchService.deleteBatch(batchName);
         return  ResponseEntity.ok(Map.of("message", "Batch has been deleted"));

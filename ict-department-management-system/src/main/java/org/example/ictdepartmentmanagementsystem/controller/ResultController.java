@@ -27,39 +27,39 @@ public class ResultController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ResultResponse> addResult(@Valid @RequestBody AddResultRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(resultService.addResult(request));
     }
 
     @GetMapping("/my-results/{semester}")
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<List<ResultResponse>> getMyResultsBySemester(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Semester semester){
         return ResponseEntity.ok(resultService.getStudentResultsBySemester(userDetails.getUsername(), semester));
     }
 
     @GetMapping("/my-results")
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<List<ResultResponse>> getMyResults(@AuthenticationPrincipal UserDetails userDetails){
         return ResponseEntity.ok(resultService.getStudentResults(userDetails.getUsername()));
     }
 
     @GetMapping("/student")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<ResultResponse>> getStudentResults(@RequestBody Map<String, String> request){
         String enrollmentNumber = request.get("enrollmentNumber");
         return ResponseEntity.ok(resultService.getStudentResults(enrollmentNumber));
     }
 
     @GetMapping("/student/{semester}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<ResultResponse>> getStudentResultsBySemester(@RequestBody Map<String, String> request,@PathVariable Semester semester){
         String enrollmentNumber = request.get("enrollmentNumber");
         return ResponseEntity.ok(resultService.getStudentResultsBySemester(enrollmentNumber,semester));
     }
 
     @DeleteMapping("/{subjectCode}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteResult(@PathVariable String subjectCode, @RequestBody Map<String, String> request){
         String enrollmentNumber = request.get("enrollmentNumber");
         return ResponseEntity.ok(resultService.deleteResult(subjectCode,enrollmentNumber));

@@ -61,8 +61,8 @@ public class SecurityConfig {
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/news/**","/api/lecturers/**","/api/courses/**").permitAll()
                         .requestMatchers("/api/subjects/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/student/**").hasRole("STUDENT")
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/student/**").hasAuthority("STUDENT")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->

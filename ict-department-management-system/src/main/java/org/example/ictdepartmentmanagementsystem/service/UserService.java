@@ -34,6 +34,7 @@ public class UserService {
                 user.getNameWithInitials(),
                 user.getEmail(),
                 user.getRole().name(),
+                user.getProfilePicture(),
                 batchName
         );
     }
