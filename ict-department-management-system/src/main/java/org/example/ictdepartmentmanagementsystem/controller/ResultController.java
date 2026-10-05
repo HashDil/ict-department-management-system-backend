@@ -62,8 +62,10 @@ public class ResultController {
 
     @DeleteMapping("/{subjectCode}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<String> deleteResult(@PathVariable String subjectCode, @RequestBody Map<String, String> request){
+    public ResponseEntity<Map<String,String>> deleteResult(@PathVariable String subjectCode, @RequestBody Map<String, String> request){
         String enrollmentNumber = request.get("enrollmentNumber");
-        return ResponseEntity.ok(resultService.deleteResult(subjectCode,enrollmentNumber));
+
+        String result = resultService.deleteResult(subjectCode, enrollmentNumber);
+        return ResponseEntity.ok(Map.of(result,"result deleted successfully"));
     }
 }

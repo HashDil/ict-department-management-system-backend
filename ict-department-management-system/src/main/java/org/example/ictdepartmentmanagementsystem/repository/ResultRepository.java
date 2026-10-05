@@ -9,5 +9,5 @@ import java.util.List;
 public interface ResultRepository extends JpaRepository<Result,Long> {
     List<Result> findByStudentEnrollmentNumber(String studentEnrollmentNumber);
     List<Result> findByStudentEnrollmentNumberAndSemester(String studentEnrollmentNumber, Semester semester);
-    Result findByStudentEnrollmentNumberAndSubjectSubjectCode(String studentEnrollmentNumber, String subjectCode);
+    List<Result> findByStudentEnrollmentNumberAndSubjectSubjectCode(String studentEnrollmentNumber, String subjectCode);
 }

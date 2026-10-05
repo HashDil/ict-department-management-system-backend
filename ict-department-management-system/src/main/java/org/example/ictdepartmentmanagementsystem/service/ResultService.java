@@ -83,8 +83,11 @@ public class ResultService {
         if (student == null){
             throw new IllegalArgumentException("Student not found");
         }
+        List<Result> duplicates = resultRepository.findByStudentEnrollmentNumber(enrollmentNumber);
 
-        resultRepository.delete( resultRepository.findByStudentEnrollmentNumberAndSubjectSubjectCode(enrollmentNumber,subjectCode));
+        if(duplicates != null && !duplicates.isEmpty()){
+            resultRepository.deleteAll(duplicates);
+        }
 
         return "Result deleted successfully";
     }
