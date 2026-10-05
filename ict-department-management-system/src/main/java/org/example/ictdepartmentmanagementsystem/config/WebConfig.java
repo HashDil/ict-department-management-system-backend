@@ -23,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${app.upload.academicstaff.dir}")
     private String academicStaffUploadDir;
 
-
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registerHandler(registry, uploadDir, "/uploads/profile-pictures/**");
         registerHandler(registry, academicStaffUploadDir, "/uploads/academicstaff-pictures/**");
