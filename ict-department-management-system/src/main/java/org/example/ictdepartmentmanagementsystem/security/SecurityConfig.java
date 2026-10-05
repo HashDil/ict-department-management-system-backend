@@ -60,7 +60,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/news/**","/api/lecturers/**","/api/courses/**").permitAll()
-                        .requestMatchers("/api/subjects/**").permitAll()
+                        .requestMatchers("/api/subjects/**","/api/academicStaff/**").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/student/**").hasAuthority("STUDENT")
                         .anyRequest().authenticated()
