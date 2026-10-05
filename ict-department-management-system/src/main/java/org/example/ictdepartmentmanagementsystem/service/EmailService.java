@@ -41,7 +41,10 @@ public class EmailService {
 
             System.out.println("========== EMAIL SENT SUCCESSFULLY ==========");
         }catch (Exception e){
-            System.out.println("Email could not be sent because of an exception");
+            System.out.println("========== EMAIL FAILED ==========");
+            e.printStackTrace();
+
+            throw e;
         }
     }
 }

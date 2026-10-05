@@ -56,9 +56,26 @@ public class AdminService {
 
         student.setBatch(batch);
 
+//        userRepository.save(student);
+//
+//        emailService.sendDefaultCredentials(request.getFullName(),request.getEmail(),request.getEnrollmentNumber(),defaultPassword);
+//
+        System.out.println("========== STUDENT SAVING ==========");
+
         userRepository.save(student);
 
-        emailService.sendDefaultCredentials(request.getFullName(),request.getEmail(),request.getEnrollmentNumber(),defaultPassword);
+        System.out.println("========== STUDENT SAVED ==========");
+        System.out.println("Student email: " + request.getEmail());
+        System.out.println("========== CALLING EMAIL SERVICE ==========");
+
+        emailService.sendDefaultCredentials(
+                request.getFullName(),
+                request.getEmail(),
+                request.getEnrollmentNumber(),
+                defaultPassword
+        );
+
+        System.out.println("========== EMAIL SERVICE FINISHED ==========");
     }
 
     private String generateDefaultPassword() {
