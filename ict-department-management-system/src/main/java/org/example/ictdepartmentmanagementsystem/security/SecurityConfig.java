@@ -78,7 +78,8 @@ public class SecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         corsConfiguration.setAllowedOrigins(List.of(
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "https://ict-department-frontend-main-mvb9.vercel.app/"
         ));
 
         corsConfiguration.setAllowedMethods(List.of(
