@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/results")
 public class ResultController {
@@ -44,16 +44,18 @@ public class ResultController {
         return ResponseEntity.ok(resultService.getStudentResults(userDetails.getUsername()));
     }
 
-    @GetMapping("/student")
+    // CHANGED TO @PostMapping
+    @PostMapping("/student")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<ResultResponse>> getStudentResults(@RequestBody Map<String, String> request){
         String enrollmentNumber = request.get("enrollmentNumber");
         return ResponseEntity.ok(resultService.getStudentResults(enrollmentNumber));
     }
 
-    @GetMapping("/student/{semester}")
+    // CHANGED TO @PostMapping
+    @PostMapping("/student/{semester}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<List<ResultResponse>> getStudentResultsBySemester(@RequestBody Map<String, String> request,@PathVariable Semester semester){
+    public ResponseEntity<List<ResultResponse>> getStudentResultsBySemester(@RequestBody Map<String, String> request, @PathVariable Semester semester){
         String enrollmentNumber = request.get("enrollmentNumber");
         return ResponseEntity.ok(resultService.getStudentResultsBySemester(enrollmentNumber,semester));
     }

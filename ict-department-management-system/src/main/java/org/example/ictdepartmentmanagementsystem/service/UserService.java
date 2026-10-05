@@ -34,9 +34,10 @@ public class UserService {
                 user.getNameWithInitials(),
                 user.getEmail(),
                 user.getRole().name(),
-                user.getProfilePicture(),
-                batchName
-        );
+                batchName,
+                user.getProfilePicture()
+
+                );
     }
 
     public UserResponse getUserByEnrollmentNumber(String enrollmentNumber) {

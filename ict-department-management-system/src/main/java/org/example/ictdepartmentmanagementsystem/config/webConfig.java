@@ -13,9 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class webConfig implements WebMvcConfigurer {
 
-    private static final Logger log = LoggerFactory.getLogger(WebConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(webConfig.class);
 
     @Value("${app.upload.dir}")
     private String uploadDir;

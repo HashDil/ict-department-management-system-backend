@@ -77,34 +77,40 @@ public class AcademicStaffService {
 
     }
 
-    public String addPictureToAcademicStaff (MultipartFile file, String email) throws IOException {
+    public String addPictureToAcademicStaff(MultipartFile file, String email) throws IOException {
         AcademicStaff staff = academicStaffRepository.findAcademicStaffByEmail(email);
-
         if (staff == null) {
-            throw new IllegalArgumentException("No academicStaff found for this email");
+            throw new IllegalArgumentException("Staff member not found");
         }
 
-        if(staff.getPicture()!=null){
+        // Delete old picture if it exists so we don't clog up the folder
+        if (staff.getPicture() != null) {
             fileStorageService.deleteAcademicStaffPicture(staff.getPicture());
         }
 
-       String relativePath = fileStorageService.saveAcademicStaffPicture(file, email);
+        // Save new file and get the path
+        String relativePath = fileStorageService.saveAcademicStaffPicture(file, email);
+
+        // Save the path to the database!
         staff.setPicture(relativePath);
         academicStaffRepository.save(staff);
 
-        return "Picture saved successfully";
-
+        return "Picture added successfully";
     }
 
-    public String deletePicture (String email) throws IOException {
+    public String deletePicture(String email) throws IOException {
         AcademicStaff staff = academicStaffRepository.findAcademicStaffByEmail(email);
-        if (staff != null && staff.getPicture()!=null) {
+
+        if (staff != null && staff.getPicture() != null) {
+            // Delete file from disk
             fileStorageService.deleteAcademicStaffPicture(staff.getPicture());
+
+            // Remove path from database!
             staff.setPicture(null);
             academicStaffRepository.save(staff);
         }
 
-        return "Picture deleted successfully";
+        return email + " picture deleted successfully";
     }
 
 
