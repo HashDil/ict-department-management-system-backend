@@ -23,7 +23,7 @@ public class EmailService {
                 "  Enrollment Number : " + enrollmentNumber + "\n" +
                 "  Default Password  : " + defaultPassword + "\n\n" +
                 "Please log in and change your password immediately.\n\n" +
-                "Login here: http://localhost:8080/login\n\n" +
+                "Login here: https://ict-department-frontend-main-mvb9.vercel.app/login\n\n" +
                 "Regards,\n" +
                 "Department of Information and Communication Technology\n" +
                 "Uva Wellassa University"
